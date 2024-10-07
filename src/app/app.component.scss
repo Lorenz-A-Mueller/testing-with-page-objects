@@ -1,0 +1,31 @@
+header {
+  display: flex;
+  align-items: center;
+  height: 10%;
+  background: #be5fa8;
+  opacity: 30%;
+  border-radius: 20px;
+}
+
+.logo {
+  height: 100%;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+h1 {
+  font-size: large;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+
+main {
+  display: flex;
+  margin: 5% 20% 0 20%;
+  background: rgba(176, 151, 166, 0.31);
+  border-radius: 20px;
+  opacity: 30%;
+  height: 70%;
+}
