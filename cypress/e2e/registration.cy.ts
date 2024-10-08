@@ -1,22 +1,29 @@
 import { RegistrationPage } from '../pages/registration';
+import { SuccessPage } from '../pages/success';
 
 describe('registration', () => {
-  const page = new RegistrationPage();
+  const registrationPage = new RegistrationPage();
+  const successPage = new SuccessPage();
 
   it('displays headline', () => {
-    page.visit();
-    page.expectHeadline();
+    registrationPage.visit();
+    registrationPage.expectHeadline();
   });
 
-  it('enter data for first debtor', () => {
-    // todo implement
-  });
-
-  it('toggle button to display second debtor and enters data', () => {
-    // todo implement
+  it('enter data for first debtor, toggle button to display second debtor and enters data', () => {
+    registrationPage
+      .enterFirstDebtorFirstName('Max')
+      .enterFirstDebtorLastName('Mustermann')
+      .enterFirstDebtorAge(30)
+      .clickToggleButton()
+      .enterSecondDebtorFirstName('Maria')
+      .enterSecondDebtorLastName('Meier')
+      .enterSecondDebtorAge(32);
   });
 
   it('click submit, get redirected to success page', () => {
-    // todo implement
+    registrationPage.clickSubmitButton();
+    successPage.checkUrl();
+    successPage.expectHeadline();
   });
 });
