@@ -4,6 +4,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -38,6 +39,7 @@ export class RegistrationComponent implements OnDestroy {
   private toggleSubscription: Subscription;
 
   public isSubmitting = false;
+  public showFirstDebtorIncomplete = false;
 
   constructor() {
     this.toggleSubscription = this.registrationForm.valueChanges.subscribe(
@@ -51,11 +53,15 @@ export class RegistrationComponent implements OnDestroy {
     this.toggleSubscription.unsubscribe();
   }
 
-  public toggleSecondDebtor(): void {
-    if (!this.isSecondDebtorToggled) {
-      this.registrationForm.push(this.getEmptyDebtorFormGroup());
-    } else {
+  public handleSecondDebtorClicked(): void {
+    if (this.isSecondDebtorToggled) {
       this.registrationForm.removeAt(1);
+    } else {
+      if (!this.registrationForm.at(0).valid) {
+        this.showFirstDebtorIncomplete = true;
+        return;
+      }
+      this.registrationForm.push(this.getEmptyDebtorFormGroup());
     }
   }
 
@@ -68,9 +74,9 @@ export class RegistrationComponent implements OnDestroy {
 
   private getEmptyDebtorFormGroup(): FormGroup<DebtorForm> {
     return new FormGroup({
-      firstName: new FormControl<string | null>(null),
-      lastName: new FormControl<string | null>(null),
-      age: new FormControl<number | null>(null),
+      firstName: new FormControl<string | null>(null, Validators.required),
+      lastName: new FormControl<string | null>(null, Validators.required),
+      age: new FormControl<number | null>(null, Validators.required),
     });
   }
 }

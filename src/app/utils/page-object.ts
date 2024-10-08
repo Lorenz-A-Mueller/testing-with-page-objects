@@ -8,19 +8,10 @@ export abstract class PageObject<ComponentType> {
   detectChanges(): void {
     this.fixture.detectChanges();
   }
-
-  getElement(testId: string): DebugElement {
-    const selector = `[test-id="${testId}"]`;
-    return this.fixture.debugElement.query(By.css(selector));
+  getElementByName(name: string): DebugElement {
+    const selector = `[name="${name}"]`;
+    const debugElement = this.fixture.debugElement.query(By.css(selector));
+    if (!debugElement) throw Error;
+    return debugElement;
   }
-
-  getElementByTag(tag: string): HTMLElement | null {
-    const htmlElement: HTMLElement = this.fixture.nativeElement;
-    return htmlElement.querySelector(tag);
-  }
-
-  // getElement(testId: string): DebugElement {
-  //   const selector = `[test-id="${testId}"]`;
-  //   return this.fixture.debugElement.query(By.css(selector));
-  // }
 }

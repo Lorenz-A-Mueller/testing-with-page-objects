@@ -4,27 +4,31 @@
   <mat-spinner class="submit-spinner"/>
 } @else {
   <form test-id="form">
-    @for (debtorForm of registrationForm.controls;let i = $index;track i) {
+    @for (debtorForm of registrationForm.controls; let i = $index; track i) {
       <div class="form-container">
         <mat-form-field>
           <mat-label>First Name</mat-label>
-          <input matInput [formControl]="debtorForm.controls!.firstName">
+          <input matInput [formControl]="debtorForm.controls!.firstName" [name]="'first-name-input-' + i ">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Last Name</mat-label>
-          <input matInput [formControl]="debtorForm.controls!.lastName">
+          <input matInput [formControl]="debtorForm.controls!.lastName" [name]="'last-name-input-' + i ">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Age</mat-label>
-          <input matInput type="number" [formControl]="debtorForm.controls!.lastName">
+          <input matInput type="number" [formControl]="debtorForm.controls!.age" [name]="'age-input-' + i ">
         </mat-form-field>
       </div>
     }
   </form>
 
-  <mat-button-toggle (change)="toggleSecondDebtor()">
+  @if (showFirstDebtorIncomplete && this.registrationForm.at(0).invalid) {
+    <mat-error>Please complete before adding a second person.</mat-error>
+  }
+
+  <button mat-button (click)="handleSecondDebtorClicked()" [name]="'toggleButton'">
     {{ isSecondDebtorToggled ? "Remove Second Person" : "Add Second Person" }}
-  </mat-button-toggle>
+  </button>
 
   <button mat-button (click)="submitRegistration()">Submit</button>
 }
