@@ -1,28 +1,27 @@
-# TestingWithPageObjects
+# Testing With Page Objects
 
-Run `ng serve` to run the application. 
-<br>Run `ng test` to execute all unit tests.
+Page Objects are a common practice to separate concerns in FE test. 
+They provide an API that does not expose the querying logic to fetch elements that are to be asserted or interacted with, but is concerned with terminology a user could use.
 
-<br> The test-runner, Karma, can only run if there are no compilation-errors in the application.
-So when you encounter a warning "No tests found" or similar, check if you can run the app.
+With this little Angular application, we will apply Page Objects both in Component and E2E tests.
+
+Run `ng serve` to run the application.
 
 ## 1
 
-In `app/utils` I have prepared an abstract "PageObject" class. 
+Component (unit) tests with the Jasmine test-framework (using Karma as test-runner).
+<br>Run `ng test` to execute all component unit tests.
+<br> Note: Karma can only run if there are no compilation-errors in the application.
+So when you encounter a warning "No tests found" or similar, check if you can run the app.
+
+In `app/utils` I have prepared an abstract PageObject class.
 <br> This class can be used in the individual `.spec.ts` files of our components to provide generic methods.
 <br>
-<br><br>
+<br>
 In the test-suite of RegistrationComponent, we already have the PageObject set up.
-<br> Implement the "should contain a Form" test. Find a way to select the element from the `fixture` and assert its "truthiness". 
-For that, create a method in the PageObject base class.
+<br> Implement the tests. You can use the `getElementByName` method of the base class and the existing method of the subclass.
 
 ## 2
-
-The RegistrationComponent contains a button that toggles the inclusion of a FromGroup for a second debtor in the DOM.
-<br> Implement the two tests that verify the toggle-behavior.
-
-
-## 3
 
 The application also contains Cypress, a powerful tool for running e2e-tests.
 <br> Cypress provides an interactive UI that can be used in development. In CI, it is usually run using a headless browser like Electron.
