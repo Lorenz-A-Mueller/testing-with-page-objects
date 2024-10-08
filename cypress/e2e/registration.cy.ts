@@ -8,11 +8,7 @@ describe('registration', () => {
     page.expectHeadline();
   });
 
-  it('enter data for first debtor', () => {
-    // todo implement
-  });
-
-  it('toggle button to display second debtor and enters data', () => {
+  it('enter data for first debtor, toggle button to display second debtor and enter data', () => {
     // todo implement
   });
 
