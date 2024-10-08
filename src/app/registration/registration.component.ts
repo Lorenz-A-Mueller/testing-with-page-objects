@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -10,6 +10,8 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { Subscription } from 'rxjs';
 import { MatButtonToggle } from '@angular/material/button-toggle';
+import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-registration',
@@ -20,11 +22,14 @@ import { MatButtonToggle } from '@angular/material/button-toggle';
     MatInput,
     MatButton,
     MatButtonToggle,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent implements OnDestroy {
+  private router = inject(Router);
+
   public registrationForm = new FormArray<FormGroup<DebtorForm>>([
     this.getEmptyDebtorFormGroup(),
   ]);
@@ -32,10 +37,12 @@ export class RegistrationComponent implements OnDestroy {
   public isSecondDebtorToggled = false;
   private toggleSubscription: Subscription;
 
+  public isSubmitting = false;
+
   constructor() {
     this.toggleSubscription = this.registrationForm.valueChanges.subscribe(
       (form) => {
-        this.isSecondDebtorToggled = form.length == 2;
+        this.isSecondDebtorToggled = form.length === 2;
       },
     );
   }
@@ -44,7 +51,7 @@ export class RegistrationComponent implements OnDestroy {
     this.toggleSubscription.unsubscribe();
   }
 
-  toggleSecondDebtor(): void {
+  public toggleSecondDebtor(): void {
     if (!this.isSecondDebtorToggled) {
       this.registrationForm.push(this.getEmptyDebtorFormGroup());
     } else {
@@ -52,7 +59,14 @@ export class RegistrationComponent implements OnDestroy {
     }
   }
 
-  getEmptyDebtorFormGroup(): FormGroup<DebtorForm> {
+  public submitRegistration(): void {
+    this.isSubmitting = true;
+    setTimeout(() => {
+      this.router.navigate(['/success']);
+    }, 2000);
+  }
+
+  private getEmptyDebtorFormGroup(): FormGroup<DebtorForm> {
     return new FormGroup({
       firstName: new FormControl<string | null>(null),
       lastName: new FormControl<string | null>(null),

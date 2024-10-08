@@ -1,30 +1,30 @@
-<h2>Register</h2>
+<h2>Register for a Loan</h2>
 
-<form test-id="form">
-  @for (debtorForm of registrationForm.controls;let i = $index;track i) {
-    @if (debtorForm.controls) {
-
+@if (isSubmitting) {
+  <mat-spinner class="submit-spinner"/>
+} @else {
+  <form test-id="form">
+    @for (debtorForm of registrationForm.controls;let i = $index;track i) {
       <div class="form-container">
         <mat-form-field>
           <mat-label>First Name</mat-label>
-          <input matInput [formControl]="debtorForm.controls.firstName">
+          <input matInput [formControl]="debtorForm.controls!.firstName">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Last Name</mat-label>
-          <input matInput [formControl]="debtorForm.controls.lastName">
+          <input matInput [formControl]="debtorForm.controls!.lastName">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Age</mat-label>
-          <input matInput type="number" [formControl]="debtorForm.controls.lastName">
+          <input matInput type="number" [formControl]="debtorForm.controls!.lastName">
         </mat-form-field>
       </div>
-
     }
-  }
-</form>
+  </form>
 
+  <mat-button-toggle (change)="toggleSecondDebtor()">
+    {{ isSecondDebtorToggled ? "Remove Second Person" : "Add Second Person" }}
+  </mat-button-toggle>
 
-<mat-button-toggle (change)="toggleSecondDebtor()">
-  {{ isSecondDebtorToggled ? "Remove Second Person" : "Add Second Person" }}
-</mat-button-toggle>
-
+  <button mat-button (click)="submitRegistration()">Submit</button>
+}
