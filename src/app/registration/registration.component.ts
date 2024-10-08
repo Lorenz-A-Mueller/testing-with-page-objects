@@ -39,7 +39,7 @@ export class RegistrationComponent implements OnDestroy {
   private toggleSubscription: Subscription;
 
   public isSubmitting = false;
-  public showFirstDebtorIncomplete = false;
+  public hasTriedToClickAddSecondDebtor = false;
 
   constructor() {
     this.toggleSubscription = this.registrationForm.valueChanges.subscribe(
@@ -57,11 +57,12 @@ export class RegistrationComponent implements OnDestroy {
     if (this.isSecondDebtorToggled) {
       this.registrationForm.removeAt(1);
     } else {
-      if (!this.registrationForm.at(0).valid) {
-        this.showFirstDebtorIncomplete = true;
+      if (this.registrationForm.at(0).invalid) {
+        this.hasTriedToClickAddSecondDebtor = true;
         return;
       }
       this.registrationForm.push(this.getEmptyDebtorFormGroup());
+      this.hasTriedToClickAddSecondDebtor = false;
     }
   }
 
