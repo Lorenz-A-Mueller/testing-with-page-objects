@@ -22,7 +22,7 @@
     }
   </form>
 
-  @if (showFirstDebtorIncomplete && this.registrationForm.at(0).invalid) {
+  @if (hasTriedToClickAddSecondDebtor && this.registrationForm.at(0).invalid) {
     <mat-error>Please complete before adding a second person.</mat-error>
   }
 
