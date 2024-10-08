@@ -28,13 +28,22 @@ describe('RegistrationComponent', () => {
     // todo implement
   });
 
-  it('given a second debtor has not been added, clicking on the toggle button adds form elements', () => {
+  it('given "submit" is clicked, contains a loading spinner ', () => {
     // todo implement
   });
+
+  it('given that value for all form elements of the first debtor have been entered, clicking on the toggle button adds form elements', () => {});
 
   it('given form-elements for the second debtor have been added, clicking on the toggle button removes them', () => {
     // todo implement
   });
 });
 
-class RegistrationPageObject extends PageObject<RegistrationComponent> {}
+class RegistrationPageObject extends PageObject<RegistrationComponent> {
+  public enterFirstDebtorFirstName(firstName: string): void {
+    const debugElement = this.getElementByName('first-name-input-0');
+    const inputElement: HTMLInputElement = debugElement.nativeElement;
+    inputElement.value = firstName;
+    inputElement.dispatchEvent(new Event('input'));
+  }
+}
